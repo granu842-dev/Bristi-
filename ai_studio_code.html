@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Journey | Happy Birthday</title>
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Animation Libraries -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --accent-pink: #ff2d75;
+            --accent-purple: #9c27b0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor for 2025 feel */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent scrolling during guided journey */
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        /* Layout Utilities */
+        .journey-step {
+            height: 100vh;
+            width: 100vw;
+            display: none; /* Controlled by JS */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .active { display: flex; }
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--accent-pink), var(--accent-purple));
+            border: none;
+            padding: 1rem 2.5rem;
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 2rem;
+            outline: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 45, 117, 0.4);
+        }
+
+        /* Bento Grid Style */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 200px);
+            gap: 1rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .bento-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .bento-item i { color: var(--accent-pink); margin-bottom: 0.5rem; }
+        .grid-wide { grid-column: span 2; }
+        .grid-tall { grid-row: span 2; }
+
+        /* Step-specific Styles */
+        #step-1 .teaser { font-style: italic; opacity: 0.6; margin-bottom: 2rem; }
+        
+        .candle-container {
+            position: relative;
+            cursor: pointer;
+            margin: 2rem 0;
+        }
+        
+        .flame {
+            width: 20px;
+            height: 35px;
+            background: #ffae00;
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: blur(2px);
+            animation: flicker 0.1s infinite alternate;
+        }
+
+        @keyframes flicker {
+     
